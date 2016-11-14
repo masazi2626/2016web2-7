@@ -29,19 +29,22 @@
     scene.add(light);
     scene.add(new THREE.AmbientLight(0x333333));
     
-    var geometry = new THREE.BoxGeometry(1, 1, 1);
+    var loader = new THREE.TextureLoader();
+    var geometry = new THREE.SphereGeometry(1, 32, 16);
     var material = new THREE.MeshStandardMaterial({
-      color: 0xccffcc});
-    var cube = new THREE.Mesh( geometry, material);
-    scene.add( cube );
+      color: 0xccffcc,
+      map: loader.load('sunset-1802068_1920.jpg')});
+    var mesh = new THREE.Mesh( geometry, material);
+    scene.add( mesh );
     
-    camera.position.z = 5;
+    camera.position.z = 3;
+    
+    var clock = new THREE.Clock();
     
     var render = function(){
     requestAnimationFrame( render );
-    
-    cube.rotation.x += 0.1;
-    cube.rotation.y += 0.1;
+      
+      mesh.rotation.y += 0.3 * clock.getDelta();
     
     
     renderer.render(scene, camera);
